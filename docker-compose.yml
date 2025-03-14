@@ -3,22 +3,24 @@ version: '3'
 services:
   api:
     build: .
+    container_name: mygym-backend-api-1
     ports:
       - "5000:5000"
     depends_on:
       - mongo
     environment:
       - NODE_ENV=production
-      - PORT=5000
       - MONGODB_URI=mongodb://mongo:27017/gym-management
-      - JWT_SECRET=your_secure_jwt_secret
+      - MONGODB_URI_PROD=mongodb://mongo:27017/gym-management
+      - JWT_SECRET=eef104c6e470a47d405c33b42c766d31490dda1f23c655ba119d74bc5a617b54
       - JWT_EXPIRES_IN=7d
       - QR_CODE_EXPIRY=24h
       - DEFAULT_POINTS_FOR_NEW_USER=100
     restart: always
-
+    
   mongo:
     image: mongo:latest
+    container_name: mygym-backend-mongo-1
     ports:
       - "27017:27017"
     volumes:
